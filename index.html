@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>
+	Autoscroll
+</title>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
+<style>
+#scroll-wrapper {
+	position: relative;
+	width: 330px;
+	height: 229px;
+}
+#rotating-item-wrapper {
+	position: relative;
+	width: 222px;
+	height: 218px;
+	overflow: hidden;
+	border-style: solid;
+	border-color: black;
+	border-width: 3px 0px 3px 2px;
+	border-radius: 5px 0px 0px 5px;
+	padding: 5px;
+	background-color: #D0D0D0;
+}
+.rotating-item {
+	display: none;
+	position: absolute;
+}
+#tab-container {
+	position: absolute;
+	width: 96px;
+	height: 230px;
+	right: 0;
+	top: 0;
+	font-family: Verdana, sans-serif;
+	font-size: .75em;
+	border-style: solid;
+	border-color: black;
+	border-width: 2px 0px 2px 0px;
+	border-radius: 0px 5px 5px 0px;
+}
+#tab-container a {
+	text-decoration: none;
+	text-align: left;
+	color: black;
+}
+#tab-container .tabs {
+	display: flex;
+	align-items: center;
+	height: 44px;
+	margin: 0px;
+	border-style: solid;
+	border-color: black;
+	border-width: 1px 1px 1px 2px;
+	border-radius: 0px 5px 5px 0px;
+	vertical-align: middle;
+	padding: 0px 0px 0px 2px;
+	background-color: #A8A8A8;
+}
+#tab-container .active {
+	border-color: black black black transparent;
+	background-color: #D0D0D0;
+	color: orange;
+	font-weight: bold;
+}
+</style>
+<script>
+$('document').ready(function() {
+	var InfiniteRotator =
+	    {
+	        init: function() {
+	            var initialFadeIn = 100;
+	            var itemInterval = 6000;
+	            var numberOfItems = $('.rotating-item').length;
+	            var i = 0;
+				var interval_function = function(){
+					$('.rotating-item').eq(i).fadeOut();
+					$('.tabs').eq(i).removeClass('active');
+	                if(i == numberOfItems -1){
+	                    i = 0;	
+	                }else{
+	                    i++;					
+	                }
+	                $('.rotating-item').eq(i).fadeIn();
+					$('.tabs').eq(i).addClass('active');
+					
+				};
+	            $('.rotating-item').eq(i).fadeIn(initialFadeIn);
+	            var infiniteLoop = setInterval(interval_function, itemInterval);
+				$('.rotating-item').hover(function(){
+					clearInterval(infiniteLoop);
+				}, function() {
+					infiniteLoop = setInterval(interval_function, itemInterval);
+				});
+				$('.tabs').click(function(){
+					$('.tabs').removeClass('active');
+					$(this).addClass('active');
+					var tabID = $(this).index();
+					clearInterval(infiniteLoop);
+					$('.rotating-item').eq(i).fadeOut();
+					i = tabID;
+					$('.rotating-item').eq(i).fadeIn();
+					infiniteLoop = setInterval(interval_function, itemInterval);
+					return false;
+				});
+	        }
+	    };
+ 
+	    InfiniteRotator.init();
+		
+	
+	
+}); //end ready
+</script>
+</head>
+
+<body>
+<h3>Images in box autoscroll. Scroll pauses on hover over picture. When tab is clicked, associated image is displayed and scroll resets to current image.</h3>
+<div id="scroll-wrapper">
+	<div id="rotating-item-wrapper">
+		<a class="rotating-item" href="images/BusterbrownLarge.jpg"><img src="images/BusterbrownMed.png" height="218px" width="220px"></a>
+		<a class="rotating-item" href="images/CandylandLarge.jpg"><img src="images/CandylandMed.png" height="218px" width="220px"></a>
+		<a class="rotating-item" href="images/CorrugationLarge.jpg"><img src="images/CorrugationMed.png" height="218px" width="220px"></a>
+		<a class="rotating-item" href="images/FractureLarge.jpg"><img src="images/FractureMed.png" height="218px" width="220px"></a>
+		<a class="rotating-item" href="images/HyperspaceLarge.jpg"><img src="images/HyperspaceMed.png" height="218px" width="220px"></a>
+	</div>
+	<div id="tab-container">
+		<a class="tabs active" href="images/BusterbrownLarge.jpg">buster brown</a>
+		<a class="tabs" href="images/CandylandLarge.jpg">candyland</a>
+		<a class="tabs" href="images/CorrugationLarge.jpg">corrugation corner</a>
+		<a class="tabs" href="images/FractureLarge.jpg">fracture</a>
+		<a class="tabs" href="images/HyperspaceLarge.jpg">hyperspace</a>
+	</div>
+</div>
+
+
+</body>
+</html>
