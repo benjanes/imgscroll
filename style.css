@@ -1,7 +1,7 @@
 
 #scroll-wrapper {
 	position: relative;
-	width: 330px;
+	width: 332px;
 	height: 229px;
 }
 #rotating-item-wrapper {
@@ -22,7 +22,7 @@
 }
 #tab-container {
 	position: absolute;
-	width: 96px;
+	width: 100px;
 	height: 230px;
 	right: 0;
 	top: 0;
