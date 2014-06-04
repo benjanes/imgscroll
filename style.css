@@ -37,10 +37,10 @@
 	text-decoration: none;
 	text-align: left;
 	color: black;
+	line-height: 44px;
 }
 #tab-container .tabs {
-	display: flex;
-	align-items: center;
+	display: block;
 	height: 44px;
 	margin: 0px;
 	border-style: solid;
